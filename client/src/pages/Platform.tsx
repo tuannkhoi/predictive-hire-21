@@ -1,6 +1,6 @@
 import React from 'react';
 
-const Pricing = () => {
+const Platform = () => {
   return (
     <div
       style={{
@@ -10,9 +10,9 @@ const Pricing = () => {
         height: '90vh'
       }}
     >
-      <h1>Why us</h1>
+      <h1>Platform</h1>
     </div>
   );
 };
 
-export default Pricing;
+export default Platform;
