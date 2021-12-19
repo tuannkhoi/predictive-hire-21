@@ -1,6 +1,4 @@
-import React from 'react';
-
-const Why = () => {
+export default function ChatInterview() {
   return (
     <div
       style={{
@@ -10,9 +8,7 @@ const Why = () => {
         height: '90vh'
       }}
     >
-      <h1>Why us</h1>
+      <h1>Chat Interview</h1>
     </div>
   );
 };
-
-export default Why;

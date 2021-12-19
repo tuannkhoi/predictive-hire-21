@@ -3,7 +3,9 @@ import { useState } from 'react';
 import { Modal, Button, Form, Input, Typography } from 'antd';
 const { Text } = Typography;
 
-interface requestBody {
+const loginAPI: string = 'https://reqres.in/api/login';
+
+interface requestLogInBody {
   email: string;
   password: string;
 }
@@ -11,15 +13,14 @@ interface requestBody {
 export default function SignInModal() {
   const [visible, setVisible] = useState(false);
   const [msg, setMsg] = useState({isError: false, data: ''})
-  const onFinish = (values: any) => {
-    console.log('Success:', values.email);
-    let body: requestBody = {
+  const onSubmit = (values: {email: string, password: string}) => {
+    let body: requestLogInBody = {
       email: values.email,
       password: values.password
     }
     
     axios.post(
-      'https://reqres.in/api/login',
+      loginAPI,
       body
     ).then(response => {
       setMsg({isError: false, data:`Your response token is ${response.data.token}`});
@@ -28,7 +29,7 @@ export default function SignInModal() {
     })
   };
 
-  const onFinishFailed = (errorInfo: any) => {
+  const onSubmitFailed = () => {
     setMsg({isError: true ,data: ''});
   };
   return (
@@ -49,8 +50,8 @@ export default function SignInModal() {
       labelCol={{ span: 8 }}
       wrapperCol={{ span: 16 }}
       initialValues={{ remember: true }}
-      onFinish={onFinish}
-      onFinishFailed={onFinishFailed}
+      onFinish={onSubmit}
+      onFinishFailed={onSubmitFailed}
       autoComplete="off"
     >
       <Form.Item

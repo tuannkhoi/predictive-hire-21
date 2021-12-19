@@ -1,12 +1,13 @@
 import "antd/dist/antd.css";
 import { Menu } from "antd";
+import { NavLink } from "react-router-dom";
 const { SubMenu } = Menu;
 
 interface NavBarElements {
   [key: string]: string[];
 	readonly Products: string[];
 	readonly Platform: string[];
-	readonly "Why us": string[];
+	readonly "Why Us": string[];
 	readonly Resources: string[];
 	readonly Blog: string[];
 	readonly Contact: string[]
@@ -15,32 +16,37 @@ interface NavBarElements {
 const elements: NavBarElements = {
 	"Products": ["Chat Interview", "Video Interview", "Group Interview", "Candidate Feedback", "Candidate Insights", "People Insights", "Integration"],
 	"Platform": ["Candidate Experience", "Eliminating Bias", "Speed to hire"],
-	"Why us": ["The Science", "Successful Customers", "Case Study", "Award Winning", "Featured In"],
+	"Why Us": ["The Science", "Successful Customers", "Case Study", "Award Winning", "Featured In"],
 	"Resources": ["Saving Calculator", "Ultimate Guide", "DEI Report", "Fair eBook", "Inclusion eBook", "Experience eBook", "Retail eBook", "Automation eBook", "Other Resources"],
-	"Blog": ["change me"],
-	"Contact": ["change me"]
+	"Blog": ["Candidate Experience With AI", "Conversational AI", "In The Press"],
+	"Contact": ["Phone And Email", "Carrier Pigeon", "Hogwarts Owl"]
 };
 
+/**
+ * lowercase the key & replace the " " with "-" (for URL)
+ * @param key
+ * @returns
+ */
 const formatKey = (key: string) => {
-  return key.toLowerCase().replace(" ", "-")
+  return key.replace(/\s+/g, '-').toLowerCase();
 }
 
 export default function MenuItems() {
   return (
-    <Menu
-        mode="horizontal"
-      >
-        {Object.keys(elements).map((key) => (
-          <SubMenu key={key} title={formatKey(key)}>
-            <Menu.ItemGroup>
-              {elements[key].map((value) => (
-                <Menu.Item>
-                  <div>{formatKey(value)}</div>
-                </Menu.Item>
-              ))}
-            </Menu.ItemGroup>
-          </SubMenu>
-        ))}
-      </Menu>
+    <Menu mode="horizontal" theme="dark">
+      {Object.keys(elements).map((key) => (
+        <SubMenu key={formatKey(key)} title={key}>
+          <Menu.ItemGroup>
+            {elements[key].map((value) => (
+              <Menu.Item key={formatKey(value)}>
+                <NavLink to={formatKey(value)}>
+                   {value}
+                </NavLink>
+              </Menu.Item>
+            ))}
+          </Menu.ItemGroup>
+        </SubMenu>
+      ))}
+    </Menu>
   );
 }
