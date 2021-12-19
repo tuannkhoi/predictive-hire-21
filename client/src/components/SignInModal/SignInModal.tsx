@@ -1,44 +1,91 @@
+import axios from 'axios';
 import React, { useState } from 'react';
-import Box from '@mui/material/Box';
-import Button from '@mui/material/Button';
-import Typography from '@mui/material/Typography';
-import Modal from '@mui/material/Modal';
+import { Modal, Button, Form, Input, Typography } from 'antd';
+const { Text, Link } = Typography;
 
-const style = {
-  position: 'absolute' as 'absolute',
-  top: '50%',
-  left: '50%',
-  transform: 'translate(-50%, -50%)',
-  width: 700,
-  bgcolor: 'background.paper',
-  border: '2px solid #000',
-  boxShadow: 10,
-  p: 4,
-};
+interface requestBody {
+  email: string;
+  password: string;
+}
 
 export default function SignInModal() {
-  const [open, setOpen] = useState(false);
-  const handleOpen = () => setOpen(true);
-  const handleClose = () => setOpen(false);
+  const [visible, setVisible] = useState(false);
+  const [msg, setMsg] = useState({isError: false, data: ''})
+  const onFinish = (values: any) => {
+    console.log('Success:', values.email);
+    let body: requestBody = {
+      email: values.email,
+      password: values.password
+    }
+    
+    axios.post(
+      'https://reqres.in/api/login',
+      body
+    ).then(response => {
+      setMsg({isError: false, data:`Your response token is ${response.data.token}`});
+    }).catch((error) => {
+      setMsg({isError: true, data:JSON.parse(error.request.response).error});
+    })
+  };
 
+  const onFinishFailed = (errorInfo: any) => {
+    setMsg({isError: true ,data: ''});
+  };
   return (
-    <div>
-      <Button onClick={handleOpen} style={{color: 'white'}}>Sign In</Button>
-      <Modal
-        open={open}
-        onClose={handleClose}
-        aria-labelledby="modal-modal-title"
-        aria-describedby="modal-modal-description"
+    <>
+    <Button type="primary" onClick={() => {setVisible(true)}}>
+      Sign in
+    </Button>
+    <Modal
+    title="Sign in"
+    centered
+    visible={visible}
+    footer={null}
+    onCancel={() => setVisible(false)}
+
+    >
+      <Form
+      name="basic"
+      labelCol={{ span: 8 }}
+      wrapperCol={{ span: 16 }}
+      initialValues={{ remember: true }}
+      onFinish={onFinish}
+      onFinishFailed={onFinishFailed}
+      autoComplete="off"
+    >
+      <Form.Item
+        label="Email"
+        name="email"
+        rules={[{ required: true, message: 'Please input your email!' }]}
       >
-        <Box sx={style}>
-          <Typography id="modal-modal-title" variant="h6" component="h2">
-            Text in a modal
-          </Typography>
-          <Typography id="modal-modal-description" sx={{ mt: 2 }}>
-            Duis mollis, est non commodo luctus, nisi erat porttitor ligula.
-          </Typography>
-        </Box>
-      </Modal>
-    </div>
+        <Input />
+      </Form.Item>
+
+      <Form.Item
+        label="Password"
+        name="password"
+        rules={[{ required: true, message: 'Please input your password!' }]}
+      >
+        <Input.Password />
+      </Form.Item>
+
+      <Form.Item name="remember" valuePropName="checked" wrapperCol={{ offset: 8, span: 16 }}>
+        {
+
+          (msg.isError && msg.data !== '') ?
+            <Text type="danger">{msg.data}</Text> :
+            <Text type="success">{msg.data}</Text>
+
+        }
+      </Form.Item>
+
+      <Form.Item wrapperCol={{ offset: 8, span: 16 }}>
+        <Button type="primary" htmlType="submit">
+          Submit
+        </Button>
+      </Form.Item>
+    </Form>
+    </Modal>
+    </>
   );
 }
