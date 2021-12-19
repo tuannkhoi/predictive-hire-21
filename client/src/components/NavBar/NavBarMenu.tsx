@@ -1,6 +1,4 @@
-import React, { useState } from 'react';
 import "antd/dist/antd.css";
-// import "./index.css";
 import { Menu } from "antd";
 const { SubMenu } = Menu;
 
@@ -23,8 +21,6 @@ const elements: NavBarElements = {
 	"Contact": ["change me"]
 };
 
-var menuItems:any = [];
-
 const formatKey = (key: string) => {
   return key.toLowerCase().replace(" ", "-")
 }
@@ -39,9 +35,6 @@ export default function MenuItems() {
             <Menu.ItemGroup>
               {elements[key].map((value) => (
                 <Menu.Item>
-                  {/* <a target="_blank" rel="noopener noreferrer" href=".">
-                    {value}
-                  </a> */}
                   <div>{formatKey(value)}</div>
                 </Menu.Item>
               ))}

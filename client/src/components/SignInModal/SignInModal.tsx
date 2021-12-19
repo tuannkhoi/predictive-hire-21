@@ -1,7 +1,7 @@
 import axios from 'axios';
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { Modal, Button, Form, Input, Typography } from 'antd';
-const { Text, Link } = Typography;
+const { Text } = Typography;
 
 interface requestBody {
   email: string;
@@ -23,7 +23,7 @@ export default function SignInModal() {
       body
     ).then(response => {
       setMsg({isError: false, data:`Your response token is ${response.data.token}`});
-    }).catch((error) => {
+    }).catch(error => {
       setMsg({isError: true, data:JSON.parse(error.request.response).error});
     })
   };

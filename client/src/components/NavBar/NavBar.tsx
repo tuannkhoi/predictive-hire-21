@@ -1,15 +1,13 @@
-import React, { useState } from 'react';
 import { NavLink } from 'react-router-dom';
 import 'antd/dist/antd.css';
-import { Layout, Space, Modal, Button } from 'antd';
+import { Layout, Space } from 'antd';
 import MenuItems from './NavBarMenu'
 import SignInModal from '../SignInModal/SignInModal'
-const { Header, Footer, Sider, Content } = Layout;
+const { Header } = Layout;
 
 
 
 export default function ResponsiveAppBar() {
-  const [signIn, toggleSignIn] = useState(false);
   return (
     <Header>
       <Space>
