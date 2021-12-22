@@ -13,7 +13,7 @@ interface NavBarElements {
 	readonly Contact: string[]
 }
 
-const elements: NavBarElements = {
+export const elements: NavBarElements = {
 	"Products": ["Chat Interview", "Video Interview", "Group Interview", "Candidate Feedback", "Candidate Insights", "People Insights", "Integration"],
 	"Platform": ["Candidate Experience", "Eliminating Bias", "Speed to hire"],
 	"Why Us": ["The Science", "Successful Customers", "Case Study", "Award Winning", "Featured In"],
@@ -27,16 +27,16 @@ const elements: NavBarElements = {
  * @param key
  * @returns
  */
-const formatKey = (key: string) => {
+export const formatKey = (key: string) => {
   return key.replace(/\s+/g, '-').toLowerCase();
 }
 
-export default function MenuItems() {
+export default function NavBarMenu() {
   return (
     <Menu mode="horizontal" theme="dark">
       {Object.keys(elements).map((key) => (
         <SubMenu key={formatKey(key)} title={key}>
-          <Menu.ItemGroup>
+          <Menu.ItemGroup data-testid="dropdown-menu">
             {elements[key].map((value) => (
               <Menu.Item key={formatKey(value)}>
                 <NavLink to={formatKey(value)}>

@@ -1,19 +1,15 @@
-import { NavLink } from 'react-router-dom';
 import 'antd/dist/antd.css';
 import { Layout, Space } from 'antd';
+import Logo from './Logo';
 import MenuItems from './NavBarMenu'
-import SignInModal from '../SignInModal'
+import SignInModal from './SignInModal'
 const { Header } = Layout;
 
-
-
-export default function ResponsiveAppBar() {
+export default function NavBar() {
   return (
     <Header>
       <Space size={300}>
-        <NavLink to="/" style={{color: 'white', fontSize: "medium"}}>
-          Predictive Hire
-        </NavLink>
+        <Logo />
         <MenuItems />
         <SignInModal />
       </Space>

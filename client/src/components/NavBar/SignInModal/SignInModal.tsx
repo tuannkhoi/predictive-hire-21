@@ -18,19 +18,19 @@ export default function SignInModal() {
       email: values.email,
       password: values.password
     }
-    
+
     axios.post(
       loginAPI,
       body
     ).then(response => {
       setMsg({isError: false, data:`Your response token is ${response.data.token}`});
     }).catch(error => {
-      setMsg({isError: true, data:JSON.parse(error.request.response).error});
+      setMsg({isError: true, data: error.response.data.error});
     })
   };
 
   const onSubmitFailed = () => {
-    setMsg({isError: true ,data: ''});
+    setMsg({isError: true, data: ''});
   };
   return (
     <>
@@ -38,16 +38,17 @@ export default function SignInModal() {
       Sign in
     </Button>
     <Modal
-    title="Sign in"
-    centered
-    visible={visible}
-    footer={null}
-    onCancel={() => setVisible(false)}
-
+      title="Sign in"
+      centered
+      visible={visible}
+      footer={null}
+      cancelText="Close form"
+      onCancel={() => setVisible(false)}
+      data-testid="signin-modal"
     >
       <Form
       name="basic"
-      labelCol={{ span: 8 }}
+      labelCol={{ span: 5 }}
       wrapperCol={{ span: 16 }}
       initialValues={{ remember: true }}
       onFinish={onSubmit}
@@ -59,7 +60,7 @@ export default function SignInModal() {
         name="email"
         rules={[{ required: true, message: 'Please input your email!' }]}
       >
-        <Input />
+        <Input data-testid="input-email"/>
       </Form.Item>
 
       <Form.Item
@@ -67,25 +68,25 @@ export default function SignInModal() {
         name="password"
         rules={[{ required: true, message: 'Please input your password!' }]}
       >
-        <Input.Password />
+        <Input.Password data-testid="input-password"/>
       </Form.Item>
 
       <Form.Item name="remember" valuePropName="checked" wrapperCol={{ offset: 8, span: 16 }}>
         {
 
           (msg.isError && msg.data !== '') ?
-            <Text type="danger">{msg.data}</Text> :
-            <Text type="success">{msg.data}</Text>
+            <Text type="danger" data-testid="response-msg-danger">{msg.data}</Text> :
+            <Text type="success" data-testid="response-msg-success">{msg.data}</Text>
 
         }
       </Form.Item>
 
-      <Form.Item wrapperCol={{ offset: 8, span: 16 }}>
+      <Form.Item wrapperCol={{ offset: 10, span: 16 }}>
         <Button type="primary" htmlType="submit">
           Submit
         </Button>
       </Form.Item>
-    </Form>
+      </Form>
     </Modal>
     </>
   );
