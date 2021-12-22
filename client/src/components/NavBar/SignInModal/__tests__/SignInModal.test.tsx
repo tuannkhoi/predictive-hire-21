@@ -5,7 +5,7 @@ import axios from 'axios';
 jest.mock('axios');
 const mockedAxios = axios as jest.Mocked<typeof axios>;
 
-test("modal is visible when user click on Sign In Button & disappear when click on close button", () => {
+test("modal appear when user click on Sign In Button & disappear when click on close button", () => {
 	render(<SignInModal />);
 	
 	fireEvent.click(screen.getByText('Sign in'));

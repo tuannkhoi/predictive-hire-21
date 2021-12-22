@@ -10,7 +10,8 @@ interface NavBarElements {
 	readonly "Why Us": string[];
 	readonly Resources: string[];
 	readonly Blog: string[];
-	readonly Contact: string[]
+	readonly Contact: string[],
+  // readonly Demo: string[]
 }
 
 export const elements: NavBarElements = {
@@ -19,7 +20,8 @@ export const elements: NavBarElements = {
 	"Why Us": ["The Science", "Successful Customers", "Case Study", "Award Winning", "Featured In"],
 	"Resources": ["Saving Calculator", "Ultimate Guide", "DEI Report", "Fair eBook", "Inclusion eBook", "Experience eBook", "Retail eBook", "Automation eBook", "Other Resources"],
 	"Blog": ["Candidate Experience With AI", "Conversational AI", "In The Press"],
-	"Contact": ["Phone And Email", "Carrier Pigeon", "Hogwarts Owl"]
+	"Contact": ["Phone And Email", "Carrier Pigeon", "Hogwarts Owl"],
+  // "Demo": ["Item 1", "Item 2", "Item 3", "Item 4", "Item 5"]
 };
 
 /**
@@ -38,9 +40,11 @@ export default function NavBarMenu() {
         <SubMenu key={formatKey(key)} title={key}>
           <Menu.ItemGroup>
             {elements[key].map((value) => (
-                <NavLink to={formatKey(value)}>
+              <Menu.Item key={formatKey(value)} >
+                <NavLink to={formatKey(value)} >
                    {value}
                 </NavLink>
+              </Menu.Item>
             ))}
           </Menu.ItemGroup>
         </SubMenu>

@@ -8,7 +8,7 @@ const { Header } = Layout;
 export default function NavBar() {
   return (
     <Header>
-      <Space size={300}>
+      <Space size={250} align="start">
         <Logo />
         <MenuItems />
         <SignInModal />

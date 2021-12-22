@@ -14,9 +14,9 @@ test('render nested menu correctly', () => {
 	for(let key of Object.keys(elements)) {
 		fireEvent.click(screen.getByText(key));
 		
-		for (let item of elements[key]) {
-			fireEvent.click(screen.getByText(item));
-			expect(screen.getByTestId('location-display')).toHaveTextContent(formatKey(item));
+		for (let value of elements[key]) {
+			fireEvent.click(screen.getByText(value));
+			expect(screen.getByTestId('location-display')).toHaveTextContent(formatKey(value));
 		}
 	}
 })
