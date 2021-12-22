@@ -11,7 +11,6 @@ test('render logo element correctly', () => {
 			<LocationDisplay />
 		</MemoryRouter>
 	);
-	expect(screen.getByText('Predictive Hire')).toBeInTheDocument();
 	fireEvent.click(screen.getByText('Predictive Hire'));
 	expect(screen.getByTestId('location-display')).toHaveTextContent('/');
 });

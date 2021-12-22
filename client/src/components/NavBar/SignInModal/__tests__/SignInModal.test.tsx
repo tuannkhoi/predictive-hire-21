@@ -1,25 +1,19 @@
 import { render, screen, fireEvent, waitFor } from '@testing-library/react';
-import '@testing-library/jest-dom'
 import SignInModal from '../SignInModal';
 
-import axios, { AxiosResponse } from 'axios';
+import axios from 'axios';
 jest.mock('axios');
 const mockedAxios = axios as jest.Mocked<typeof axios>;
 
+test("modal is visible when user click on Sign In Button & disappear when click on close button", () => {
+	render(<SignInModal />);
+	
+	fireEvent.click(screen.getByText('Sign in'));
+	expect(screen.getByTestId('signin-modal')).toBeInTheDocument();
 
-describe("Sign in modal's visibility", () => {
-	test("modal is visible when user click on Sign In Button & disappear when click on close button", () => {
-		render(<SignInModal />);
-		
-		expect(screen.getByText('Sign in')).toBeInTheDocument();
-		
-		fireEvent.click(screen.getByText('Sign in'));
-		expect(screen.getByTestId('signin-modal')).toBeInTheDocument();
-
-		fireEvent.click(screen.getByRole('button', { name: "Close" }));
-		expect(screen.queryByRole('dialog')).toBeNull();
-	});
-})
+	fireEvent.click(screen.getByRole('button', { name: "Close" }));
+	expect(screen.queryByRole('dialog')).toBeNull();
+});
 
 describe("Sign In logic", () => {
 	test("report user not found when input wrong email", async () => {
@@ -49,7 +43,7 @@ describe("Sign In logic", () => {
 
 		expect(axios.post).toHaveBeenCalled();
 		expect(screen.getByTestId("response-msg-danger")).toHaveTextContent('User not found')
-	})
+	});
 
 	test("return token when user signs in successfully", async () => {
 		mockedAxios.post.mockResolvedValueOnce({
@@ -76,5 +70,5 @@ describe("Sign In logic", () => {
 
 		expect(axios.post).toHaveBeenCalled();
 		expect(screen.getByTestId("response-msg-success")).toHaveTextContent('Your response token is fakeToken')
-	})
+	});
 })

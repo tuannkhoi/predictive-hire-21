@@ -36,13 +36,11 @@ export default function NavBarMenu() {
     <Menu mode="horizontal" theme="dark">
       {Object.keys(elements).map((key) => (
         <SubMenu key={formatKey(key)} title={key}>
-          <Menu.ItemGroup data-testid="dropdown-menu">
+          <Menu.ItemGroup>
             {elements[key].map((value) => (
-              <Menu.Item key={formatKey(value)}>
                 <NavLink to={formatKey(value)}>
                    {value}
                 </NavLink>
-              </Menu.Item>
             ))}
           </Menu.ItemGroup>
         </SubMenu>

@@ -1,30 +1,22 @@
-import { render, screen, cleanup, fireEvent, waitFor } from '@testing-library/react';
-import '@testing-library/jest-dom';
-import { MemoryRouter, NavLink } from 'react-router-dom';
+import { render, screen, fireEvent } from '@testing-library/react';
+import { MemoryRouter } from 'react-router-dom';
 import NavBarMenu, {elements, formatKey} from '../NavBarMenu';
-import { Menu } from "antd";
+import LocationDisplay from '../../../LocationDisplay';
 
-const { SubMenu } = Menu;
-
-afterEach(cleanup);
-
-
-test('render submenus correctly', async () => {
-	render(<NavBarMenu />, {wrapper: MemoryRouter});
+test('render nested menu correctly', () => {
+	render(
+		<MemoryRouter>
+			<NavBarMenu />
+			<LocationDisplay />
+		</MemoryRouter>
+	);
 	
-	for(let itemGroup of Object.keys(elements)) {
-		const itemGroupComponent = screen.getByText(itemGroup)
-		expect(itemGroupComponent).toBeInTheDocument();
-		// await waitFor(() => screen.findByTestId("dropdown-menu"))
+	for(let key of Object.keys(elements)) {
+		fireEvent.click(screen.getByText(key));
 		
-		// for(let item of elements[itemGroup]) {
-		// 	console.log(item);
-		// 	expect(screen.getByText(item)).toBeInTheDocument();
-		// }
-
-		// console.log('----' + "\n")
-
-		// fireEvent.mouseLeave(itemGroupComponent);
-		// await waitFor(() => screen.findByTestId("dropdown-menu"))
+		for (let item of elements[key]) {
+			fireEvent.click(screen.getByText(item));
+			expect(screen.getByTestId('location-display')).toHaveTextContent(formatKey(item));
+		}
 	}
 })
