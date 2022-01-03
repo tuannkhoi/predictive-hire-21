@@ -4,13 +4,15 @@ import elements from "./NavBarElements";
 import { elementInterface } from "./NavBarElements";
 const { SubMenu } = Menu;
 
-export const formatKey = (key: string) => {
-  return key.replace(/\s+/g, "-").toLowerCase();
-};
-
 const recursiveMenu = (elements: elementInterface[]) => {
   return elements.map(
-    ({ title, children = [] }: { title: string; children?: elementInterface[] }) => {
+    ({
+      title,
+      children = [],
+    }: {
+      title: string;
+      children?: elementInterface[];
+    }) => {
       if (!children.length) {
         return <Menu.Item key={title}>{title}</Menu.Item>;
       } else {

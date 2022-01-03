@@ -1,6 +1,6 @@
 export interface elementInterface {
-  title: string;
-  children?: elementInterface[];
+  readonly title: string;
+  readonly children?: elementInterface[];
 }
 
 const elements: elementInterface[] = [

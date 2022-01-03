@@ -1,8 +1,8 @@
-import 'antd/dist/antd.css';
-import { Layout, Space } from 'antd';
-import Logo from './Logo';
-import MenuItems from './NavBarMenu'
-import SignInModal from './SignInModal'
+import "antd/dist/antd.css";
+import { Layout, Space } from "antd";
+import Logo from "./Logo";
+import MenuItems from "./NavBarMenu";
+import SignInModal from "./SignInModal";
 const { Header } = Layout;
 
 export default function NavBar() {
@@ -15,4 +15,4 @@ export default function NavBar() {
       </Space>
     </Header>
   );
-};
+}

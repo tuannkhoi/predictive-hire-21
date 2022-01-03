@@ -1,3 +1,3 @@
-import LocationDisplay from './LocationDisplay';
+import LocationDisplay from "./LocationDisplay";
 
 export default LocationDisplay;
